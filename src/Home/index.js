@@ -21,10 +21,10 @@ function Home() {
    return (
         <>
             {decks.map((deck) => (
-                <Deck name={deck.name} description={deck.description} />
+                <Deck name={deck.name} description={deck.description} deckId={deck.id} />
             ))}
         </>
-   )
-}
+   );
+};
 
 export default Home;
