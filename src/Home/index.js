@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { listDecks } from "../../utils/api";
+import { listDecks } from "../utils/api";
+import Deck from "../Decks/Deck";
 
 function Home() {
     const [decks, setDecks] = useState([]);
@@ -13,22 +14,17 @@ function Home() {
         fetchDecks()
     }, [])
 
-   
+   if (!decks) {
+        return <h3>Loading...</h3>
+   }
 
-    
-    if(decks.length > 0) {
-        return (
-            <>
-                {decks.map((deck) => (
-                    <p key={deck.id}>{deck.name}</p>
-                ))}
-            </>
-            
-        
-        );
-    } else {
-        return null;
-    }
+   return (
+        <>
+            {decks.map((deck) => (
+                <Deck name={deck.name} description={deck.description} />
+            ))}
+        </>
+   )
 }
 
 export default Home;
