@@ -5,7 +5,7 @@ import Deck from "../Decks/Deck";
 function Home() {
     const [decks, setDecks] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         async function fetchDecks() {
             const deckList = await listDecks();
             setDecks(deckList);
@@ -20,6 +20,12 @@ function Home() {
 
    return (
         <>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Home</li>
+                </ol>
+            </nav>
+            <br />
             {decks.map((deck) => (
                 <Deck name={deck.name} description={deck.description} deckId={deck.id} />
             ))}
