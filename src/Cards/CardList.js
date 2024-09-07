@@ -17,7 +17,7 @@ function CardList() {
                 <h2>{decks.name}</h2>
                 <p>{decks.description}</p>
                 <Link to={`/decks/${deckId}/edit`} className="btn btn-secondary">Edit</Link>
-                <Link to={"#"} className="btn btn-primary">Study</Link>
+                <Link to={`/decks/${deckId}/study`} className="btn btn-primary">Study</Link>
                 <Link to={"#"} className="btn btn-primary">Add Card</Link>
                 <Link to={"#"} className="btn btn-danger float-right">Delete</Link>
             </div>

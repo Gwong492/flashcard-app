@@ -8,7 +8,7 @@ function Deck({ name, description, deckId }) {
                     <h2 className="card-title">{name}</h2>
                     <p className="card-text">{description}</p>
                     <Link to={`/decks/${deckId}`} className="btn btn-secondary">View</Link>
-                    <Link to={"#"}className="btn btn-primary">Study</Link>
+                    <Link to={`/decks/${deckId}/study`}className="btn btn-primary">Study</Link>
                     <Link to={"#"} className="btn btn-danger float-right">Delete</Link>
                 </div>
             </div>

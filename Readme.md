@@ -8,3 +8,4 @@
 - Created branch `create-deck-view`
 - Created branch `create-edit-deck`
 - Created branch `create-edit-card`
+- Created branch `create-study`
