@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 function Card({ card, deckId }) {
     const cardId = card.id;
+    const cardRequestType = "edit"
     return (
         <>
             <div className="card w-75">
@@ -16,7 +17,7 @@ function Card({ card, deckId }) {
                     </div>
                     <br />
                     <Link to={"#"} className="btn btn-danger float-right">Delete</Link>
-                    <Link to={`/decks/${deckId}/cards/${cardId}/edit`} className="btn btn-secondary float-right">Edit</Link>
+                    <Link to={`/decks/${deckId}/cards/${cardId}/${cardRequestType}`} className="btn btn-secondary float-right">Edit</Link>
                 </div>
             </div>
             <br />

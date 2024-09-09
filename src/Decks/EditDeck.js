@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
 import { updateDeck } from "../utils/api";
 

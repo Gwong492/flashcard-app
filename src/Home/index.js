@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { listDecks } from "../utils/api";
 import Deck from "../Decks/Deck";
+import { Link } from "react-router-dom";
 
 function Home() {
     const [decks, setDecks] = useState([]);
+    const deckRequestType = "new";
 
     useEffect(() => {
         async function fetchDecks() {
@@ -21,10 +23,12 @@ function Home() {
    return (
         <>
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Home</li>
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item active" aria-current="page">Home</li>
                 </ol>
             </nav>
+            <br />
+            <Link to={`/decks/${deckRequestType}`} className="btn btn-primary">Add Deck</Link> 
             <br />
             {decks.map((deck) => (
                 <Deck name={deck.name} description={deck.description} deckId={deck.id} />
