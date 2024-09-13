@@ -92,7 +92,7 @@ function CardCall() {
                     <li className="breadcrumb-item"><Link to={`/decks/${deckId}`}>{`${decks.name}`}</Link></li>
                     <li className="breadcrumb-item active" aria-current="page">
                         {request === "edit"?
-                        (<>Edit Card</>):
+                        (<>{`Edit Card ${cardId}`}</>):
                         (<>New Card</>)}
                     </li>
                 </ol>
@@ -101,7 +101,7 @@ function CardCall() {
             <h3>
                 {request === "edit"?
                 (<>Edit Card</>):
-                (<>New Card</>)}
+                (<>Add Card</>)}
             </h3>
             <br />
             <form onSubmit={handleSubmit}>

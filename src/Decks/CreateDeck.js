@@ -46,13 +46,13 @@ function CreateDeck() {
     return (
         <>
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><Link to={'/'}>Home</Link></li>
-                    <li class="breadcrumb-item active" aria-current="page">New Deck</li>                          
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item"><Link to={'/'}>Home</Link></li>
+                    <li className="breadcrumb-item active" aria-current="page">New Deck</li>                          
                 </ol>
             </nav>
             <br />
-            <h3>New Deck</h3>
+            <h3>Create Deck</h3>
             <br />
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">
