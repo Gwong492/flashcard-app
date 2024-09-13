@@ -9,6 +9,7 @@ import CardList from "../Cards/CardList";
 import EditCard from "../Cards/EditCard";
 import Study from "../Decks/Study";
 import CardCall from "../Cards/CardCall";
+import CreateDeck from "../Decks/CreateDeck";
 
 function Layout() {
   return (
@@ -16,9 +17,10 @@ function Layout() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/decks/new" element={<CreateDeck />} />
         <Route path="/decks/:deckId" element={<DeckView />}>
           <Route index element={<CardList />} />
-          <Route path="/decks/:deckId/:requestId" element={<EditDeck />} />
+          <Route path="/decks/:deckId/edit" element={<EditDeck />} />
           <Route path="/decks/:deckId/cards" element={<EditCard />} >
             <Route path=":cardId/:cardRequestType" element={<CardCall />} />
             <Route path=":cardRequestType" element={<CardCall />} />

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 function Home() {
     const [decks, setDecks] = useState([]);
-    const deckRequestType = "new";
 
     useEffect(() => {
         async function fetchDecks() {
@@ -28,7 +27,7 @@ function Home() {
                 </ol>
             </nav>
             <br />
-            <Link to={`/decks/${deckRequestType}`} className="btn btn-primary">Add Deck</Link> 
+            <Link to={`/decks/new`} className="btn btn-primary">Add Deck</Link> 
             <br />
             {decks.map((deck) => (
                 <Deck name={deck.name} description={deck.description} deckId={deck.id} />

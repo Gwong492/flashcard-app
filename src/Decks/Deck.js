@@ -1,6 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { deleteDeck } from "../utils/api";
 
 function Deck({ name, description, deckId }) {
+
+    const handleClick = (event) => {
+        event.preventDefault();
+        const abortController = new AbortController();
+        const { signal } = abortController;
+        if (window.confirm("Are you sure you want to delete this deck?")) {
+            deleteDeck(deckId, signal);
+        }
+    }
+
     return (
         <>
             <div className="card w-75">
@@ -9,7 +20,7 @@ function Deck({ name, description, deckId }) {
                     <p className="card-text">{description}</p>
                     <Link to={`/decks/${deckId}`} className="btn btn-secondary">View</Link>
                     <Link to={`/decks/${deckId}/study`}className="btn btn-primary">Study</Link>
-                    <Link to={"#"} className="btn btn-danger float-right">Delete</Link>
+                    <Link className="btn btn-danger float-right" onClick={handleClick}>Delete</Link>
                 </div>
             </div>
             <br />

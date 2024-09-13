@@ -1,21 +1,19 @@
 import { useState } from "react";
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
-import { updateDeck } from "../utils/api";
+import { useNavigate, Link } from "react-router-dom";
+import { createDeck } from "../utils/api";
 
-function EditDeck() {
-    const { decks, deckId, cards } = useOutletContext();
-
+function CreateDeck() {
     const navigate = useNavigate();
     const initialFormState = {
-                                name: decks.name,
-                                description: decks.description,
+                                name: "",
+                                description: "",
                             }
 
     const [formData, setFormData] = useState({...initialFormState});
     
     const updateData = async (data, signal) => {
             try {
-                await updateDeck(data, signal);
+                await createDeck(data, signal);
             } catch (error) {
                 console.error("Error updating deck:", error);
             }
@@ -27,15 +25,13 @@ function EditDeck() {
         const jsonData = {
                             name: formData.name,
                             description: formData.description,
-                            id: deckId,
-                            cards: cards,
                         }
 
         if (window.confirm("Are you sure you want to save changes?")) {
             const abortController = new AbortController();
             const { signal } = abortController;
             await updateData(jsonData, signal);
-            navigate(`/decks/${deckId}`);
+            navigate(`/`);
         }
     };
 
@@ -52,12 +48,11 @@ function EditDeck() {
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><Link to={'/'}>Home</Link></li>
-                    <li class="breadcrumb-item"><Link to={`/decks/${deckId}`}>{`${decks.name}`}</Link></li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit Deck</li>                          
+                    <li class="breadcrumb-item active" aria-current="page">New Deck</li>                          
                 </ol>
             </nav>
             <br />
-            <h3>Edit Deck</h3>
+            <h3>New Deck</h3>
             <br />
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">
@@ -89,7 +84,7 @@ function EditDeck() {
                 <button 
                     className="btn btn-secondary" 
                     type="button" 
-                    onClick={() => navigate(`/decks/${deckId}`)}>
+                    onClick={() => navigate(`/`)}>
                         Cancel
                 </button>
                 <button type="submit" className="btn btn-primary">
@@ -100,4 +95,4 @@ function EditDeck() {
     );
 }
 
-export default EditDeck;
+export default CreateDeck;

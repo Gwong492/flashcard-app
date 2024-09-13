@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom";
+import { deleteCard } from "../utils/api";
 
 function Card({ card, deckId }) {
     const cardId = card.id;
     const cardRequestType = "edit"
+
+    const handleClick = (event) => {
+        event.preventDefault();
+        const abortController = new AbortController();
+        const { signal } = abortController;
+        if (window.confirm("Are you sure you want to delete this card?")) {
+            deleteCard(cardId, signal);
+        };
+    };
+
     return (
         <>
             <div className="card w-75">
@@ -16,7 +27,7 @@ function Card({ card, deckId }) {
                         </div>
                     </div>
                     <br />
-                    <Link to={"#"} className="btn btn-danger float-right">Delete</Link>
+                    <Link className="btn btn-danger float-right" onClick={handleClick}>Delete</Link>
                     <Link to={`/decks/${deckId}/cards/${cardId}/${cardRequestType}`} className="btn btn-secondary float-right">Edit</Link>
                 </div>
             </div>
