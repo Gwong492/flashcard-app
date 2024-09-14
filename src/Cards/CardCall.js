@@ -34,7 +34,7 @@ function CardCall() {
    const [ formData, setFormData ] = useState(initialFormState());
 
     const updateData = async (data, signal, request, deckId) => {
-        if (request === "update") {
+        if (request === "edit") {
             try {
                 await updateCard(data, signal);
             } catch (error) {
@@ -44,7 +44,7 @@ function CardCall() {
             try {
                 await createCard(deckId, data, signal);
             } catch (error) {
-                console.error("Error updating card:", error);
+                console.error("Error Creating card:", error);
             };
         }
     };
@@ -55,10 +55,10 @@ function CardCall() {
         const jsonData = () => {
             if (request === "edit") {
                 return {
+                    id: cardId,
                     front: formData.front,
                     back: formData.back,
-                    id: cardId,
-                    deckId: deckId,
+                    deckId: Number(deckId),
                 };
             } 
             return {

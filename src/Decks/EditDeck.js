@@ -27,7 +27,7 @@ function EditDeck() {
         const jsonData = {
                             name: formData.name,
                             description: formData.description,
-                            id: deckId,
+                            id: Number(deckId),
                             cards: cards,
                         }
 
