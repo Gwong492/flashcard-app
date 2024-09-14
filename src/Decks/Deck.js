@@ -1,7 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { deleteDeck } from "../utils/api";
+import React from "react";
 
-function Deck({ name, description, deckId }) {
+function Deck({ name, description, deckId, cards }) {
 
     const handleClick = (event) => {
         event.preventDefault();
@@ -14,9 +15,16 @@ function Deck({ name, description, deckId }) {
 
     return (
         <>
-            <div className="card w-75">
+            <div className="card w-75" key={`deckId${deckId}`}>
                 <div className="card-body">
-                    <h2 className="card-title">{name}</h2>
+                    <div className="row">
+                        <div className="col">
+                            <h2 className="card-title">{name}</h2>
+                        </div>
+                        <div className="col float-right">
+                            <h5>{`${cards.length} cards`}</h5>
+                        </div>
+                    </div>
                     <p className="card-text">{description}</p>
                     <Link to={`/decks/${deckId}`} className="btn btn-secondary">View</Link>
                     <Link to={`/decks/${deckId}/study`}className="btn btn-primary">Study</Link>

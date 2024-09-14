@@ -1,4 +1,5 @@
 import { Link, useOutletContext } from "react-router-dom";
+import React from "react";
 
 function NotEnoughCards() {
     const { decks, deckId } = useOutletContext();

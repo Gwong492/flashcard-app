@@ -13,11 +13,11 @@ function Home() {
         }
 
         fetchDecks()
-    }, [])
+    }, []);
 
    if (!decks) {
         return <h3>Loading...</h3>
-   }
+   };
 
    return (
         <>
@@ -27,11 +27,21 @@ function Home() {
                 </ol>
             </nav>
             <br />
-            <Link to={`/decks/new`} className="btn btn-primary">Add Deck</Link> 
+            <div className="container w-65">
+                <h2>Decks</h2>
+                <br />
+                <Link to={`/decks/new`} className="btn btn-primary">Add Deck</Link> 
+                <br />
+            </div>
             <br />
-            {decks.map((deck) => (
-                <Deck name={deck.name} description={deck.description} deckId={deck.id} />
-            ))}
+            <div className="container w-65">
+                {decks.map((deck) => {
+                    const cards = deck.cards;
+                    return (
+                        <Deck name={deck.name} description={deck.description} deckId={deck.id} cards={cards} />
+                    )
+                })}
+            </div>
         </>
    );
 };

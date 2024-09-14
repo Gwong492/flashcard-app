@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useOutletContext, Link, useNavigate, Outlet } from "react-router-dom";
 
 function Study() {
@@ -31,8 +31,10 @@ function Study() {
     return ( 
         <>
             {cards.length <= 2? 
-            <Outlet context={outletContext}/>:
-            <>
+            <div className="container w-65">
+                <Outlet context={outletContext}/>
+            </div>:
+            <>          
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><Link to={'/'}>Home</Link></li>
@@ -41,31 +43,33 @@ function Study() {
                     </ol>
                 </nav>
                 <br />
-                <div className="card w-75">
-                    <div className="row">
-                        <div className="card-title col">
-                            <h4>Card {index + 1} of {cards.length}</h4>
+                <div className="container w-65">
+                    <div className="card w-75">
+                        <div className="row">
+                            <div className="card-title col">
+                                <h4>Card {index + 1} of {cards.length}</h4>
+                            </div>
+                            <div className="card-title col">
+                                <p>{cardSide}</p>
+                            </div>
                         </div>
-                        <div className="card-title col">
-                            <p>{cardSide}</p>
+                        <div className="card-body">
+                            {cardSide === "Front" ? 
+                            (<>{cards[index].front}</>) :
+                            (<>{cards[index].back}</>)
+                            }
                         </div>
-                    </div>
-                    <div className="card-body">
-                        {cardSide === "Front" ? 
-                        (<>{cards[index].front}</>) :
-                        (<>{cards[index].back}</>)
-                        }
-                    </div>
-                    <div>
-                        {cardSide === "Front" ? 
-                            (<button className="btn btn-secondary" onClick={handleFlip}>Flip</button>) :
-                            (
-                            <>
-                                <button className="btn btn-secondary" onClick={handleFlip}>Flip</button>
-                                <button className="btn btn-primary" onClick={handleNext}>Next</button>
-                            </>
-                            )
-                        }
+                        <div>
+                            {cardSide === "Front" ? 
+                                (<button className="btn btn-secondary" onClick={handleFlip}>Flip</button>) :
+                                (
+                                <>
+                                    <button className="btn btn-secondary" onClick={handleFlip}>Flip</button>
+                                    <button className="btn btn-primary" onClick={handleNext}>Next</button>
+                                </>
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
             </>

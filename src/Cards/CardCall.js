@@ -1,6 +1,6 @@
 import { useOutletContext, Link } from "react-router-dom";
 import { createCard, updateCard } from "../utils/api";
-import { useState } from "react";
+import React, { useState } from "react";
 
 function CardCall() {
     const { request, deckId, cardId, navigate, decks, cards } = useOutletContext();
@@ -71,7 +71,7 @@ function CardCall() {
         if (window.confirm("Are you sure you want to save changes?")) {
             const abortController = new AbortController();
             const { signal } = abortController;
-            await updateData(jsonData, signal, request, deckId );
+            await updateData(jsonData(), signal, request, deckId );
             navigate(`/decks/${deckId}`);
         };
     };
@@ -98,47 +98,49 @@ function CardCall() {
                 </ol>
             </nav>
             <br />
-            <h3>
-                {request === "edit"?
-                (<>Edit Card</>):
-                (<>Add Card</>)}
-            </h3>
-            <br />
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Front
-                </label>
+            <div className="container w-65">
+                <h3>
+                    {request === "edit"?
+                    (<>Edit Card</>):
+                    (<>Add Card</>)}
+                </h3>
                 <br />
-                <textarea
-                    className="form-control w-75"
-                    type="text"
-                    rows={3}
-                    name="front"
-                    onChange={handleChange}
-                    value={formData.front}
-                ></textarea>
-                <br />
-                <label>
-                    Back
-                </label>
-                <br />
-                <textarea
-                    className="form-control w-75"
-                    type="text"
-                    rows={3}
-                    name="back"
-                    onChange={handleChange}
-                    value={formData.back}
-                ></textarea>
-                <br />
-                <button 
-                    type="button" 
-                    className="btn btn-secondary" 
-                    onClick={() => navigate(`/decks/${deckId}`)}>
-                        Cancel
-                    </button>
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Front
+                    </label>
+                    <br />
+                    <textarea
+                        className="form-control w-75"
+                        type="text"
+                        rows={3}
+                        name="front"
+                        onChange={handleChange}
+                        value={formData.front}
+                    ></textarea>
+                    <br />
+                    <label>
+                        Back
+                    </label>
+                    <br />
+                    <textarea
+                        className="form-control w-75"
+                        type="text"
+                        rows={3}
+                        name="back"
+                        onChange={handleChange}
+                        value={formData.back}
+                    ></textarea>
+                    <br />
+                    <button 
+                        type="button" 
+                        className="btn btn-secondary" 
+                        onClick={() => navigate(`/decks/${deckId}`)}>
+                            Cancel
+                        </button>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
+            </div>
         </>
     )
 };

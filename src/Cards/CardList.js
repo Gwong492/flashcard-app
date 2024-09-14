@@ -1,6 +1,7 @@
 import { useOutletContext, Link, useNavigate } from "react-router-dom";
 import Card from "./Card";
 import { deleteDeck } from "../utils/api";
+import React from "react";
 
 function CardList() {
     const { cards, deckId, decks } = useOutletContext();

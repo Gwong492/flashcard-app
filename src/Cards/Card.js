@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteCard } from "../utils/api";
+import React from "react";
 
 function Card({ card, deckId }) {
     const cardId = card.id;
     const cardRequestType = "edit"
+    const navigate = useNavigate();
 
     const handleClick = (event) => {
         event.preventDefault();
@@ -11,12 +13,13 @@ function Card({ card, deckId }) {
         const { signal } = abortController;
         if (window.confirm("Are you sure you want to delete this card?")) {
             deleteCard(cardId, signal);
+            navigate(`/decks/${deckId}`);
         };
     };
 
     return (
         <>
-            <div className="card w-75">
+            <div className="card w-75" key={`cardId${cardId}`}>
                 <div className="card-body">
                     <div className="row">
                         <div className="col">

@@ -1,12 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Outlet, useNavigate, useOutletContext, useParams } from "react-router-dom";
 
 function EditCard() {
    const { decks, deckId, cards } = useOutletContext();
    const { cardId, cardRequestType } = useParams();
    const navigate = useNavigate();
-   
-   console.log(cardRequestType);
    
 
    const [ request, setRequest ] = useState(cardRequestType);
