@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { deleteDeck } from "../utils/api";
-import React from "react";
+import React, { useEffect } from "react";
 
 function Deck({ name, description, deckId, cards }) {
 
@@ -12,6 +12,10 @@ function Deck({ name, description, deckId, cards }) {
             deleteDeck(deckId, signal);
         }
     }
+
+    useEffect(() => {
+        
+    }, [handleClick])
 
     return (
         <>

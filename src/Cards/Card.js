@@ -1,20 +1,23 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { deleteCard } from "../utils/api";
 import React from "react";
 
-function Card({ card, deckId }) {
+function Card({ card, deckId, refreshCards }) {
     const cardId = card.id;
-    const cardRequestType = "edit"
-    const navigate = useNavigate();
 
-    const handleClick = (event) => {
+    const handleClick = async (event) => {
         event.preventDefault();
         const abortController = new AbortController();
         const { signal } = abortController;
+
         if (window.confirm("Are you sure you want to delete this card?")) {
-            deleteCard(cardId, signal);
-            navigate(`/decks/${deckId}`);
-        };
+            try {
+                await deleteCard(cardId, signal);
+                refreshCards();
+            } catch (error) {
+                console.error("Error deleting card:", error);
+            }
+        }
     };
 
     return (
@@ -26,17 +29,27 @@ function Card({ card, deckId }) {
                             <div className="card-text">{card.front}</div>
                         </div>
                         <div className="col">
-                        <div className="card-text">{card.back}</div>
+                            <div className="card-text">{card.back}</div>
                         </div>
                     </div>
                     <br />
-                    <Link className="btn btn-danger float-right" onClick={handleClick}>Delete</Link>
-                    <Link to={`/decks/${deckId}/cards/${cardId}/${cardRequestType}`} className="btn btn-secondary float-right">Edit</Link>
+                    <button
+                        className="btn btn-danger float-right"
+                        onClick={handleClick}
+                    >
+                        Delete
+                    </button>
+                    <Link
+                        to={`/decks/${deckId}/cards/${cardId}/edit`}
+                        className="btn btn-secondary float-right"
+                    >
+                        Edit
+                    </Link>
                 </div>
             </div>
             <br />
         </>
-    )
-};
+    );
+}
 
 export default Card;

@@ -11,6 +11,7 @@ import Study from "../Decks/Study";
 import CardCall from "../Cards/CardCall";
 import CreateDeck from "../Decks/CreateDeck";
 import NotEnoughCards from "../Decks/NotEnoughCards";
+import CreateCard from "../Cards/CreateCard";
 
 function Layout() {
   return (
@@ -22,6 +23,7 @@ function Layout() {
         <Route path="/decks/:deckId" element={<DeckView />}>
           <Route index element={<CardList />} />
           <Route path="/decks/:deckId/edit" element={<EditDeck />} />
+          <Route path="/decks/:deckId/cards/new" element={<CreateCard/>} />
           <Route path="/decks/:deckId/cards" element={<EditCard />} >
             <Route path=":cardId/:cardRequestType" element={<CardCall />} />
             <Route path=":cardRequestType" element={<CardCall />} />
