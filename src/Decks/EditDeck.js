@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
-import FormComponent from "../forms/FormComponent";
 import { updateDeck } from "../utils/api";
+import DeckFormComponent from "../forms/DeckFormComponent";
 
 function EditDeck() {
-    const { decks, deckId, cards } = useOutletContext();
+    const { decks, deckId, cards, setChange } = useOutletContext();
     const navigate = useNavigate();
 
     const initialFormState = {
@@ -37,6 +37,7 @@ function EditDeck() {
             const { signal } = abortController;
             await updateData(jsonData, signal);
             navigate(`/decks/${deckId}`);
+            setChange(true);
         }
     };
 
@@ -64,7 +65,7 @@ function EditDeck() {
                 </ol>
             </nav>
             <br />
-            <FormComponent
+            <DeckFormComponent
                 heading="Edit Deck"
                 formData={formData}
                 handleChange={handleChange}

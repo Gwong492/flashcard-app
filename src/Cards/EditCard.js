@@ -1,44 +1,27 @@
 import React, { useState } from "react";
-import { useNavigate, useParams, useOutletContext } from "react-router-dom";
-import FormComponent from "../forms/FormComponent";
+import { useParams, useNavigate, useOutletContext, Link } from "react-router-dom";
+import FormComponent from "../forms/CardFormComponent";
 import { updateCard } from "../utils/api";
 
 function EditCard() {
-    const { decks, deckId, cards } = useOutletContext();
+    const { deckId, cards, setChange } = useOutletContext();
     const { cardId } = useParams();
     const navigate = useNavigate();
 
+    let currentCard = null; 
+    
+    cards.forEach((card) => {
+        if (Number(card.id) === Number(cardId)) {
+            currentCard = card;
+        }
+    })
+
     const initialFormState = {
-        name: cards[cardId]?.name || "",
-        description: cards[cardId]?.description || "",
+        front: currentCard?.front || "",
+        back: currentCard?.back || "",
     };
 
     const [formData, setFormData] = useState({ ...initialFormState });
-
-    const updateData = async (data, signal) => {
-        try {
-            await updateCard(data, signal);
-        } catch (error) {
-            console.error("Error updating card:", error);
-        }
-    };
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        const jsonData = {
-            ...formData,
-            id: Number(cardId),
-            deckId: Number(deckId),
-        };
-
-        if (window.confirm("Are you sure you want to save changes?")) {
-            const abortController = new AbortController();
-            const { signal } = abortController;
-            await updateData(jsonData, signal);
-            navigate(`/decks/${deckId}`);
-        }
-    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -48,14 +31,44 @@ function EditCard() {
         }));
     };
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const abortController = new AbortController();
+        const { signal } = abortController;
+
+        const updatedCard = {
+            ...formData,
+            id: Number(cardId),
+            deckId: Number(deckId),
+        };
+
+        if (window.confirm("Areyou sure you want to save these changes?")) {
+            await updateCard(updatedCard, signal);
+            navigate(`/decks/${deckId}`);
+            setChange(true);
+        }
+    };
+
     return (
         <>
+            <nav aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item">
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li className="breadcrumb-item">
+                        <Link to={`/decks/${deckId}`}>{cards[cardId]?.deckName || "Deck"}</Link>
+                    </li>
+                    <li className="breadcrumb-item active" aria-current="page">
+                        Edit Card
+                    </li>
+                </ol>
+            </nav>
             <FormComponent
                 heading="Edit Card"
                 formData={formData}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
-                cancelPath={`/decks/${deckId}`}
             />
         </>
     );

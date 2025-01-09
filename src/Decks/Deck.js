@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { deleteDeck } from "../utils/api";
-import React, { useEffect } from "react";
+import React from "react";
 
-function Deck({ name, description, deckId, cards }) {
+function Deck({ name, description, deckId, cards, setChange }) {
 
     const handleClick = (event) => {
         event.preventDefault();
@@ -10,12 +10,9 @@ function Deck({ name, description, deckId, cards }) {
         const { signal } = abortController;
         if (window.confirm("Are you sure you want to delete this deck?")) {
             deleteDeck(deckId, signal);
+            setChange(true);
         }
     }
-
-    useEffect(() => {
-        
-    }, [handleClick])
 
     return (
         <>

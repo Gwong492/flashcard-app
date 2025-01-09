@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 function Home() {
     const [decks, setDecks] = useState([]);
+    const [change, setChange] = useState(false);
 
     useEffect(() => {
         async function fetchDecks() {
@@ -13,7 +14,8 @@ function Home() {
         }
 
         fetchDecks()
-    }, []);
+        setChange(false);
+    }, [change]);
 
    if (!decks) {
         return <h3>Loading...</h3>
@@ -38,7 +40,7 @@ function Home() {
                 {decks.map((deck) => {
                     const cards = deck.cards;
                     return (
-                        <Deck name={deck.name} description={deck.description} deckId={deck.id} cards={cards} />
+                        <Deck name={deck.name} description={deck.description} deckId={deck.id} cards={cards} setChange={setChange}/>
                     )
                 })}
             </div>

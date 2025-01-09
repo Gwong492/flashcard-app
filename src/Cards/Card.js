@@ -1,19 +1,14 @@
 import { Link } from "react-router-dom";
-import { deleteCard } from "../utils/api";
 import React from "react";
 
-function Card({ card, deckId, refreshCards }) {
+function Card({ card, deckId, onDelete }) {
     const cardId = card.id;
 
     const handleClick = async (event) => {
         event.preventDefault();
-        const abortController = new AbortController();
-        const { signal } = abortController;
-
         if (window.confirm("Are you sure you want to delete this card?")) {
             try {
-                await deleteCard(cardId, signal);
-                refreshCards();
+                await onDelete(cardId);
             } catch (error) {
                 console.error("Error deleting card:", error);
             }

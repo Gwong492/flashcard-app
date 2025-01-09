@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, Link, useOutletContext } from "react-router-dom";
 import { createCard } from "../utils/api";
+import FormComponent from "../forms/CardFormComponent";
 
 function CreateCard() {
     const { deckId, decks } = useOutletContext();
@@ -32,10 +33,14 @@ function CreateCard() {
             deckId: Number(deckId),
         };
 
-        if (window.confirm("Are you sure you want to save changes")) {
-            await createCard(deckId, newCard, signal);
-            setFormData({ ...initialFormState });
-            navigate(`/decks/${deckId}`);
+        if (window.confirm("Are you sure you want to save these changes?")) {
+            try {
+                await createCard(deckId, newCard, signal);
+                setFormData({ ...initialFormState });
+                navigate(`/decks/${deckId}`);
+            } catch (error) {
+                console.error("Error creating card:", error);
+            }
         }
     };
 
@@ -55,47 +60,12 @@ function CreateCard() {
                 </ol>
             </nav>
             <div className="container w-65">
-                <h2>{`${decks.name}: Add Card`}</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="front">Front</label>
-                        <textarea
-                            id="front"
-                            name="front"
-                            className="form-control"
-                            rows="3"
-                            placeholder="Enter front of the card"
-                            value={formData.front}
-                            onChange={handleChange}
-                            required
-                        ></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="back">Back</label>
-                        <textarea
-                            id="back"
-                            name="back"
-                            className="form-control"
-                            rows="3"
-                            placeholder="Enter back of the card"
-                            value={formData.back}
-                            onChange={handleChange}
-                            required
-                        ></textarea>
-                    </div>
-                    <button 
-                        className="btn btn-secondary"
-                        onClick={() => window.location.assign(`/decks/${deckId}`)}
-                    >
-                    Cancel
-                    </button>
-                    <button 
-                        type="submit"  
-                        className="btn btn-primary"
-                    >
-                    Save
-                    </button>
-                </form>
+                <FormComponent
+                    heading={`${decks.name}: Add Card`}
+                    formData={formData}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                />
             </div>
         </>
     );

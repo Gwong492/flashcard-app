@@ -5,6 +5,7 @@ import { Outlet, useParams } from "react-router-dom";
 function DeckView() {
     const [decks, setDecks] = useState(null);
     const { deckId } = useParams()
+    const [change, setChange] = useState(false);
         
     useEffect(() => {
         async function fetchDeck() {
@@ -12,8 +13,8 @@ function DeckView() {
             setDecks(response);
         }
         fetchDeck()
-
-    }, [])
+        setChange(false)
+    }, [change])
 
     if (!decks) {
         return <h2>Loading...</h2>
@@ -21,7 +22,7 @@ function DeckView() {
     
     const cards = decks.cards;
 
-    const contextValue = { deckId, cards, decks }
+    const contextValue = { deckId, cards, decks, setChange };
     
     return (
         <Outlet context={contextValue}/>
