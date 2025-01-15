@@ -25,7 +25,7 @@ A user-friendly flashcard application designed to help users create, manage, and
 1. **Clone the repository**:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Gwong492/flashcard-app.git
    cd flashcard-app
    ```
 
